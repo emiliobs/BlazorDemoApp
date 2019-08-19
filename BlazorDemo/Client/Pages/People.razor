@@ -80,8 +80,10 @@ else
                             </div>
 
                             <div class="text-center">
-                                <button type="button" class="btn btn-info rounded-0 py-2 px-4 ml-2">By NOw</button>
-                                <button type="button" class="btn btn-danger rounded-0 py-2 px-4">Save</button>
+                                <button type="button" class="btn btn-info rounded-0 py-2 px-4 ml-2" 
+                                        @onclick="@(()=> ByNow(person))">By NOw</button>
+                                <button type="button" class="btn btn-danger rounded-0 py-2 px-4"
+                                        @onclick="@(()=> SaveUSerPost(person))">Save</button>
                             </div>
 
                         </div>
@@ -96,6 +98,16 @@ else
 @code {
     List<PersonModel> people;
     bool isLoading = false;
+
+    private void ByNow(PersonModel person)
+    {
+        person.AccountBalance -= 5.15M;
+    }
+
+    private async Task SaveUSerPost(PersonModel person)
+    {
+        await Http.PostJsonAsync("person", person);
+    }
 
     private async Task LoadPeople()
     {
